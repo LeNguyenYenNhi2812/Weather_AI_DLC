@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Real-time weather application with offline support">
+  <meta name="theme-color" content="#1a1a1a">
+  <title data-i18n="app.title">Weather App</title>
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/responsive.css">
+</head>
+<body class="bg-light text-dark">
+  <!-- Navigation Header -->
+  <header class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <span class="navbar-brand fw-bold">
+        <span class="me-2">🌦️</span>
+        <span data-i18n="app.title">Weather App</span>
+      </span>
+
+      <div class="d-flex gap-2 ms-auto">
+        <!-- Language Switcher -->
+        <button id="lang-switcher" class="btn btn-sm btn-outline-light" title="Switch language">
+          <span id="lang-display">EN</span> / <span id="lang-alt">VI</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="btn btn-sm btn-outline-light" title="Toggle theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+
+        <!-- Offline Indicator -->
+        <div id="offline-badge" class="badge bg-danger d-none">
+          <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+          <span data-i18n="offline.label">Offline</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Offline Banner -->
+  <div id="offline-banner" class="alert alert-warning alert-dismissible fade d-none" role="alert">
+    <strong data-i18n="offline.message">You are offline</strong> -
+    <span data-i18n="offline.description">Using cached data</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+
+  <!-- Main Container -->
+  <main class="container-fluid py-4">
+    <!-- Search Section -->
+    <section class="row mb-4">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title" data-i18n="search.title">Search Weather</h5>
+
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                id="city-input"
+                class="form-control form-control-lg"
+                data-i18n-placeholder="search.placeholder"
+                placeholder="Enter city name..."
+                autocomplete="off">
+              <button
+                class="btn btn-primary btn-lg"
+                id="search-btn"
+                type="button"
+                data-i18n="search.button">Search</button>
+            </div>
+
+            <!-- Search Suggestions -->
+            <div id="search-suggestions" class="list-group d-none"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Weather Section -->
+    <section class="row mb-4" id="current-weather-section" style="display: none;">
+      <div class="col-12 col-lg-8">
+        <div class="card shadow-sm weather-card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <h2 id="city-name" class="card-title">-</h2>
+                <p id="weather-description" class="text-muted">-</p>
+                <p id="last-updated" class="small text-secondary">-</p>
+              </div>
+              <div id="weather-icon" class="text-center">
+                <div class="display-4">🌦️</div>
+              </div>
+            </div>
+
+            <!-- Temperature Display -->
+            <div class="row mb-4">
+              <div class="col-6 col-md-3">
+                <div class="temp-card">
+                  <div class="small text-muted" data-i18n="weather.temperature">Temperature</div>
+                  <div id="current-temp" class="h4 fw-bold">--°C</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="temp-card">
+                  <div class="small text-muted" data-i18n="weather.feelsLike">Feels Like</div>
+                  <div id="feels-like" class="h4 fw-bold">--°C</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="temp-card">
+                  <div class="small text-muted" data-i18n="weather.humidity">Humidity</div>
+                  <div id="humidity" class="h4 fw-bold">--%</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="temp-card">
+                  <div class="small text-muted" data-i18n="weather.windSpeed">Wind Speed</div>
+                  <div id="wind-speed" class="h4 fw-bold">-- km/h</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Additional Details -->
+            <div class="row text-center border-top pt-3">
+              <div class="col-6 col-md-3">
+                <small class="text-muted" data-i18n="weather.pressure">Pressure</small>
+                <div id="pressure" class="fw-bold">-- hPa</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <small class="text-muted" data-i18n="weather.visibility">Visibility</small>
+                <div id="visibility" class="fw-bold">-- km</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <small class="text-muted" data-i18n="weather.sunrise">Sunrise</small>
+                <div id="sunrise" class="fw-bold">--:--</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <small class="text-muted" data-i18n="weather.sunset">Sunset</small>
+                <div id="sunset" class="fw-bold">--:--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts Section -->
+      <div class="col-12 col-lg-4">
+        <div class="card shadow-sm alert-card" id="alerts-card" style="display: none;">
+          <div class="card-header bg-danger text-white">
+            <h5 class="mb-0" data-i18n="alerts.title">🚨 Active Alerts</h5>
+          </div>
+          <div class="card-body" id="alerts-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Forecast Section -->
+    <section class="row mb-4" id="forecast-section" style="display: none;">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header">
+            <h5 class="mb-0" data-i18n="forecast.title">📅 5-Day Forecast</h5>
+          </div>
+          <div class="card-body">
+            <div id="forecast-container" class="row g-3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- History Chart Section -->
+    <section class="row mb-4" id="history-section" style="display: none;">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header">
+            <h5 class="mb-0" data-i18n="history.title">📊 7-Day History</h5>
+          </div>
+          <div class="card-body">
+            <canvas id="history-canvas" height="60"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Favorites Section -->
+    <section class="row mb-4" id="favorites-section" style="display: none;">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0" data-i18n="favorites.title">⭐ Favorite Cities</h5>
+            <button id="add-favorite-btn" class="btn btn-sm btn-primary" data-i18n="favorites.add">+ Add</button>
+          </div>
+          <div class="card-body">
+            <div id="favorites-list" class="row g-3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="d-flex justify-content-center align-items-center" style="display: none;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light py-4 mt-5">
+    <div class="container text-center">
+      <p class="mb-2" data-i18n="footer.credit">Weather data powered by OpenWeatherMap</p>
+      <p class="mb-0 small text-muted">© 2026 Weather App | <a href="#" class="text-decoration-none text-light">Privacy</a></p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.0/dist/chart.min.js"></script>
+
+  <!-- Application scripts -->
+  <script src="/js/i18n.js"></script>
+  <script src="/js/api-client.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

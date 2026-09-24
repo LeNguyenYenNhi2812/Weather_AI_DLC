@@ -1,0 +1,46 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Real-time weather application with offline support and bilingual interface",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node --watch src/server.js",
+    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "lint": "eslint src/**/*.js",
+    "build": "npm run lint && npm run test",
+    "db:migrate": "node src/utils/migrate.js",
+    "db:seed": "node src/utils/seed.js"
+  },
+  "keywords": [
+    "weather",
+    "real-time",
+    "offline",
+    "bilingual"
+  ],
+  "author": "Claude Haiku 4.5",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5",
+    "express-rate-limit": "^7.1.5",
+    "pg": "^8.11.3",
+    "dotenv": "^16.3.1",
+    "pino": "^8.17.2",
+    "pino-http": "^8.6.1",
+    "axios": "^1.6.2",
+    "body-parser": "^1.20.2",
+    "@sentry/node": "^11.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "eslint": "^8.53.0",
+    "@jest/globals": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=20.x"
+  }
+}

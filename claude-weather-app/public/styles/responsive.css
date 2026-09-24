@@ -1,0 +1,361 @@
+/* Unit FE-002: Responsive CSS */
+
+/* Mobile First - Extra Small Devices */
+@media (max-width: 576px) {
+  .container-fluid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  .weather-card .display-4 {
+    font-size: 2.5rem;
+  }
+
+  #city-name {
+    font-size: 1.5rem;
+  }
+
+  .temp-card {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .temp-card .small {
+    font-size: 0.75rem;
+  }
+
+  .temp-card .h4 {
+    font-size: 1.25rem;
+  }
+
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .form-control-lg {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* Forecast cards smaller on mobile */
+  .forecast-day {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .forecast-icon {
+    font-size: 1.5rem;
+  }
+
+  .forecast-temp {
+    font-size: 1rem;
+  }
+
+  /* Hide some columns on very small screens */
+  .d-none-xs {
+    display: none;
+  }
+
+  /* Stack layout for favorites */
+  .favorite-card {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Alert items */
+  .alert-item {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .alert-icon {
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+  }
+
+  /* Navigation adjustments */
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* Grid adjustments */
+  .row > [class^="col-"] {
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
+  }
+}
+
+/* Small Devices (Tablets) */
+@media (min-width: 576px) and (max-width: 768px) {
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .weather-card .display-4 {
+    font-size: 3rem;
+  }
+
+  #city-name {
+    font-size: 1.75rem;
+  }
+
+  .temp-card {
+    padding: 0.75rem;
+  }
+
+  .row > [class^="col-"] {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}
+
+/* Medium Devices and up */
+@media (min-width: 768px) {
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #city-name {
+    font-size: 2rem;
+  }
+
+  /* Forecast in grid */
+  .forecast-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Show more details on larger screens */
+  .d-none-sm {
+    display: block !important;
+  }
+}
+
+/* Large Devices (Desktops) */
+@media (min-width: 992px) {
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .container-fluid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  #city-name {
+    font-size: 2.5rem;
+  }
+
+  .temp-card {
+    padding: 1.5rem;
+  }
+
+  .forecast-day {
+    padding: 1.25rem;
+  }
+
+  /* Multi-column layout */
+  .weather-alerts-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Extra Large Devices */
+@media (min-width: 1200px) {
+  main {
+    max-width: 1400px;
+  }
+
+  .forecast-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Ultra Wide Screens */
+@media (min-width: 1400px) {
+  main {
+    max-width: 1600px;
+  }
+
+  .container-fluid {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Landscape Mode */
+@media (orientation: landscape) and (max-height: 600px) {
+  header {
+    padding: 0.5rem 0;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  main {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .card {
+    margin-bottom: 0.5rem;
+  }
+
+  footer {
+    padding: 0.5rem 0 !important;
+  }
+}
+
+/* High DPI / Retina Displays */
+@media (min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card {
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 44px; /* Touch target size */
+    min-width: 44px;
+  }
+
+  .form-control {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .search-suggestion {
+    padding: 1rem;
+  }
+
+  .forecast-day {
+    padding: 1.25rem 0.75rem;
+  }
+
+  /* Reduce hover effects on touch */
+  .card:hover {
+    transform: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+/* Print Media */
+@media print {
+  :root {
+    --bg-primary: white;
+    --bg-secondary: #f5f5f5;
+    --text-primary: black;
+    --text-secondary: #666;
+  }
+
+  body {
+    background-color: white;
+    color: black;
+  }
+
+  header, footer, .navbar, .btn, #offline-banner, #loading-spinner {
+    display: none !important;
+  }
+
+  .card {
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  main {
+    padding: 0;
+    margin: 0;
+  }
+
+  .row {
+    page-break-inside: avoid;
+  }
+}
+
+/* Dark Mode Preferences */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+  }
+
+  body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+}
+
+/* Light Mode Preferences */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+  }
+
+  body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus Visible for Keyboard Navigation */
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: more) {
+  .card {
+    border: 1px solid currentColor;
+  }
+
+  button {
+    border-width: 2px;
+  }
+
+  input {
+    border-width: 2px;
+  }
+}
