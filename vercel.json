@@ -19,8 +19,6 @@
     }
   },
   "regions": ["sfo1", "iad1", "hnd1"],
-  "framework": "nodejs",
-  "crons": [],
   "headers": [
     {
       "source": "/api/:path*",
@@ -54,6 +52,15 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     }
