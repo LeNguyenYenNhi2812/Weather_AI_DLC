@@ -431,5 +431,4 @@ Open source project.
 ---
 
 **Updated:** September 24, 2026  
-**Status:** ✅ Production Ready
 
